@@ -3,6 +3,23 @@ import time
 import pandas as pd
 import requests
 import yfinance as yf
+import requests
+
+TELEGRAM_TOKEN = "8621364550:AAGssZEKKgJUfBWRHNPsbute0-xbGLki4g"
+TELEGRAM_CHAT_ID = "1593234931"
+
+def enviar_telegram(mensaje):
+    try:
+        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+        payload = {
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": mensaje,
+            "parse_mode": "Markdown"
+        }
+        requests.post(url, json=payload, timeout=10)
+    except Exception as e:
+        print(f"Error enviando a Telegram: {e}")
+
 
 WEBHOOK_URL = "https://risaac-quant.onrender.com/webhook"
 PING_URL = "https://risaac-quant.onrender.com/"
