@@ -2,9 +2,8 @@ name: RISAAC Quant Engine Runner
 
 on:
   schedule:
-    # Se ejecuta automáticamente cada 15 minutos
     - cron: '*/15 * * * *'
-  workflow_dispatch: # Permite ejecutarlo manualmente con un botón
+  workflow_dispatch:
 
 jobs:
   analyze-market:
@@ -20,7 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install requests ccxt pandas
+          pip install requests pandas yfinance
 
       - name: Run RISAAC Analysis
         run: |
