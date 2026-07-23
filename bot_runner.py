@@ -5,8 +5,8 @@ import pandas as pd
 import requests
 import yfinance as yf
 
-# CREDENCIALES DE TELEGRAM (Leídas desde GitHub Secrets)
-TELEGRAM_TOKEN = "8621364550:AAGssZEKKgJUfBWRHNPsbute0-xbGLki4g"
+# CREDENCIALES DE TELEGRAM (Leídas de forma segura desde GitHub Secrets)
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 WEBHOOK_URL = "https://risaac-quant.onrender.com/webhook"
@@ -23,7 +23,7 @@ def enviar_telegram(mensaje):
         payload = {
             "chat_id": TELEGRAM_CHAT_ID,
             "text": mensaje
-            # Sin parse_mode para garantizar que ningún carácter especial bloquee el envío
+            # Se omite parse_mode para garantizar que caracteres especiales no bloqueen el envío
         }
         res = requests.post(url, json=payload, timeout=10)
 
@@ -61,7 +61,7 @@ def analyze_and_send():
 
     # 3. Construir datos de la señal
     symbol = "XAUUSD"
-    signal_type = "BUY"  # Ajustarás esta lógica según tus indicadores
+    signal_type = "BUY"  # Ajustarás esta lógica según tus indicadores reales
     entry = round(float(latest["Close"]), 2)
     sl = round(entry - 5.0, 2)
     tp = round(entry + 10.0, 2)
