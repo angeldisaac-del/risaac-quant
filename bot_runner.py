@@ -18,12 +18,22 @@ def enviar_telegram(mensaje):
         print("⚠️ Faltan credenciales de Telegram en las variables de entorno.")
         return
 
+    # Sanitizar token y chat_id por si tienen comillas, espacios o 'bot' duplicado
+    token_limpio = TELEGRAM_TOKEN.strip().replace('"', '').replace("'", "")
+    if token_limpio.lower().startswith("bot"):
+        token_limpio = token_limpio[3:]
+
+    chat_id_limpio = TELEGRAM_CHAT_ID.strip().replace('"', '').replace("'", "")
+
+    # Muestra información útil en los logs de GitHub para saber qué llega
+    print(f"🔍 Longitud del Token: {len(token_limpio)}")
+    print(f"🔍 Chat ID usado: {chat_id_limpio}")
+
     try:
-        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+        url = f"https://api.telegram.org/bot{token_limpio}/sendMessage"
         payload = {
-            "chat_id": TELEGRAM_CHAT_ID,
+            "chat_id": chat_id_limpio,
             "text": mensaje
-            # Se omite parse_mode para garantizar que caracteres especiales no bloqueen el envío
         }
         res = requests.post(url, json=payload, timeout=10)
 
@@ -33,6 +43,7 @@ def enviar_telegram(mensaje):
             print(f"❌ Telegram rechazó el mensaje: {res.status_code} - {res.text}")
     except Exception as e:
         print(f"❌ Error de red conectando con Telegram: {e}")
+
 
 
 def wake_up_render():
