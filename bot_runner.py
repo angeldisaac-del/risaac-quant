@@ -105,4 +105,30 @@ def analyze_and_send():
 
 if __name__ == "__main__":
     analyze_and_send()
-# Test XAUUSD⁠
+# ... (código previo de cálculo de indicadores/velas) ...
+
+# 1. EVALUAR SI HAY ENTRADA
+if tipo_senal in ["BUY", "SELL"]:
+    print(f"🎯 ¡Señal encontrada!: {tipo_senal}")
+
+    # 2. CONSTRUIR EL MENSAJE PARA TELEGRAM (AQUÍ VA TU BLOQUE)
+    mensaje_telegram = (
+        f"🚀 *NUEVA SEÑAL DETECTADA*\n"
+        f"--------------------------------\n"
+        f"📈 *Símbolo:* XAUUSD\n"
+        f"🟢 *Tipo:* {tipo_senal}\n"
+        f"🎯 *Entrada:* ${precio_entrada}\n"
+        f"🛑 *Stop Loss:* ${stop_loss}\n"
+        f"💰 *Take Profit:* ${take_profit}\n"
+        f"--------------------------------\n"
+        f"⏰ *Hora:* {fecha_actual}"
+    )
+
+    # 3. ENVIAR A TELEGRAM
+    enviar_telegram(mensaje_telegram)
+
+    # 4. (Opcional) Enviar también a Render
+    # requests.post(WEBHOOK_URL, json=datos)
+else:
+    print("⏳ Sin señales operativas en este ciclo.")
+
