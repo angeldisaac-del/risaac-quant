@@ -6,7 +6,7 @@ import requests
 import yfinance as yf
 
 # CREDENCIALES DE TELEGRAM (Leídas desde GitHub Secrets)
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+TELEGRAM_TOKEN = "8621364550:AAGssZEKKgJUfBWRHNPsbute0-xbGLki4g"
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 WEBHOOK_URL = "https://risaac-quant.onrender.com/webhook"
