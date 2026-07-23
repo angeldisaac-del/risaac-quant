@@ -5,8 +5,11 @@ import requests
 import yfinance as yf
 import requests
 
-TELEGRAM_TOKEN = "8621364550:AAGssZEKKgJUfBWRHNPsbute0-xbGLki4g"
-TELEGRAM_CHAT_ID = "1593234931"
+import os
+
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
 
 def enviar_telegram(mensaje):
     try:
